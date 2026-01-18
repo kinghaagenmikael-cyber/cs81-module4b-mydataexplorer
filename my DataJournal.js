@@ -17,3 +17,60 @@ const weekData = [
   { day: "Saturday", sleepHours: 8, screenTime: 3, mood: "relaxed", caffeineIntake: 0, focusLevel: 7 },
   { day: "Sunday", sleepHours: 8.5, screenTime: 2, mood: "rested", caffeineIntake: 0, focusLevel: 8 }
 ];
+function findHighestScreenTime() {
+  let maxDay = weekData[0];
+
+  for (let day of weekData) {
+    if (day.screenTime > maxDay.screenTime) {
+      maxDay = day;
+    }
+  }
+
+  return `${maxDay.day} (${maxDay.screenTime} hrs)`;
+}
+function averageSleep() {
+  let total = 0;
+
+  for (let day of weekData) {
+    total += day.sleepHours;
+  }
+
+  return (total / weekData.length).toFixed(1);
+}
+function mostFrequentMood() {
+  const moodCounts = {};
+
+  for (let day of weekData) {
+    moodCounts[day.mood] = (moodCounts[day.mood] || 0) + 1;
+  }
+
+  let mostCommon = null;
+  let highestCount = 0;
+
+  for (let mood in moodCounts) {
+    if (moodCounts[mood] > highestCount) {
+      mostCommon = mood;
+      highestCount = moodCounts[mood];
+    }
+  }
+
+  return mostCommon;
+}
+function correlateCaffeineToFocus() {
+  let highCaffeineFocus = [];
+  let lowCaffeineFocus = [];
+
+  for (let day of weekData) {
+    if (day.caffeineIntake >= 2) {
+      highCaffeineFocus.push(day.focusLevel);
+    } else {
+      lowCaffeineFocus.push(day.focusLevel);
+    }
+  }
+
+  const avg = arr => arr.reduce((a, b) => a + b, 0) / arr.length;
+
+  return avg(lowCaffeineFocus) > avg(highCaffeineFocus)
+    ? "Nope!"
+    : "Yes!";
+}
