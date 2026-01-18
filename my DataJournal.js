@@ -74,3 +74,9 @@ function correlateCaffeineToFocus() {
     ? "Nope!"
     : "Yes!";
 }
+console.log("Analyzing My Data Journal...\n");
+
+console.log("Most screen time:", findHighestScreenTime());
+console.log("Average sleep:", averageSleep(), "hrs");
+console.log("Most frequent mood:", `"${mostFrequentMood()}"`);
+console.log("Does more caffeine mean better focus? →", correlateCaffeineToFocus());
